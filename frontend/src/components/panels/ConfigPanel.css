@@ -1,0 +1,268 @@
+/* ═══════════════════════════════════════════════════════════════
+   Config Panel Styles
+   ═══════════════════════════════════════════════════════════════ */
+
+.config-panel {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.config-panel-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.empty-icon {
+  font-size: 2.5rem;
+  margin-bottom: 16px;
+  opacity: 0.6;
+}
+
+.empty-state h4 {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+.empty-state p {
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+  line-height: 1.5;
+}
+
+/* ── Header ─────────────────────────────────────────── */
+.config-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.config-panel-header h3 {
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.config-panel-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ── Body ───────────────────────────────────────────── */
+.config-panel-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 20px;
+}
+
+/* ── Sections ───────────────────────────────────────── */
+.config-section {
+  margin-bottom: 24px;
+}
+
+.config-section-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 14px;
+}
+
+.config-field {
+  margin-bottom: 14px;
+}
+
+.config-field:last-child {
+  margin-bottom: 0;
+}
+
+/* ── Info Box ───────────────────────────────────────── */
+.config-info-box {
+  display: flex;
+  gap: 12px;
+  padding: 14px;
+  background: var(--bg-surface);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+}
+
+.info-icon {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.config-info-box p {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ── API Key Toggle ─────────────────────────────────── */
+.input-with-toggle {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-with-toggle .input {
+  padding-right: 40px;
+}
+
+.toggle-visibility {
+  position: absolute;
+  right: 8px;
+  background: none;
+  border: none;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+
+.toggle-visibility:hover {
+  color: var(--text-primary);
+}
+
+/* ── Range Slider ───────────────────────────────────── */
+.range-slider {
+  width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  background: var(--bg-surface);
+  border-radius: var(--radius-full);
+  outline: none;
+  margin: 8px 0;
+}
+
+.range-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--accent-primary);
+  cursor: pointer;
+  border: 2px solid var(--bg-card);
+  box-shadow: 0 0 8px rgba(108, 99, 255, 0.3);
+}
+
+.range-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.65rem;
+  color: var(--text-tertiary);
+}
+
+/* ── Toggle Field ───────────────────────────────────── */
+.toggle-field {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.toggle-field input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--accent-primary);
+  cursor: pointer;
+}
+
+.toggle-label {
+  font-size: 0.825rem;
+  color: var(--text-primary);
+}
+
+/* ── Config Hint ────────────────────────────────────── */
+.config-hint {
+  margin-top: 8px;
+  font-size: 0.7rem;
+  color: var(--text-tertiary);
+  line-height: 1.5;
+}
+
+.config-hint code {
+  background: var(--bg-surface);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  color: var(--accent-primary-light);
+}
+
+/* ── Upload Button ──────────────────────────────────── */
+.upload-btn {
+  width: 100%;
+  justify-content: center;
+  margin-bottom: 12px;
+  border-style: dashed;
+}
+
+/* ── Document List ──────────────────────────────────── */
+.doc-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.doc-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background: var(--bg-surface);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+}
+
+.doc-name {
+  font-size: 0.75rem;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px;
+}
+
+.doc-status {
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.status-uploaded {
+  background: rgba(251, 191, 36, 0.15);
+  color: var(--accent-warning);
+}
+
+.status-processing {
+  background: rgba(56, 189, 248, 0.15);
+  color: var(--accent-info);
+}
+
+.status-processed {
+  background: rgba(0, 212, 170, 0.15);
+  color: var(--accent-secondary);
+}
+
+.status-error {
+  background: rgba(239, 68, 68, 0.15);
+  color: var(--accent-danger);
+}

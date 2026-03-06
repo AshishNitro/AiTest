@@ -1,0 +1,259 @@
+/* ═══════════════════════════════════════════════════════════════
+   Landing Page Styles
+   ═══════════════════════════════════════════════════════════════ */
+
+.landing-page {
+  height: 100vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+/* ── Background ─────────────────────────────────────── */
+.landing-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.bg-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.15;
+}
+
+.bg-orb-1 {
+  width: 500px;
+  height: 500px;
+  background: var(--accent-primary);
+  top: -150px;
+  right: -100px;
+  animation: float 8s ease-in-out infinite;
+}
+
+.bg-orb-2 {
+  width: 400px;
+  height: 400px;
+  background: var(--accent-secondary);
+  bottom: -100px;
+  left: -100px;
+  animation: float 10s ease-in-out infinite reverse;
+}
+
+.bg-orb-3 {
+  width: 300px;
+  height: 300px;
+  background: var(--node-output);
+  top: 40%;
+  left: 50%;
+  animation: float 12s ease-in-out infinite;
+}
+
+/* ── Header ─────────────────────────────────────────── */
+.landing-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 40px;
+  background: rgba(15, 15, 35, 0.8);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-text {
+  font-size: 1.3rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.02em;
+}
+
+/* ── Main ───────────────────────────────────────────── */
+.landing-main {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 40px 80px;
+}
+
+.landing-hero {
+  margin-bottom: 40px;
+}
+
+.landing-hero h1 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+  background: linear-gradient(135deg, var(--text-primary), var(--text-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.landing-hero p {
+  font-size: 1rem;
+  color: var(--text-tertiary);
+}
+
+/* ── Stack Grid ─────────────────────────────────────── */
+.stacks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+/* ── Stack Card ─────────────────────────────────────── */
+.stack-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  padding: 24px;
+  cursor: pointer;
+  transition: var(--transition-slow);
+  position: relative;
+}
+
+.stack-card:hover {
+  border-color: var(--border-color-active);
+  box-shadow: var(--shadow-glow);
+  transform: translateY(-4px);
+}
+
+.stack-card-new {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  min-height: 180px;
+  border-style: dashed;
+  border-color: var(--text-tertiary);
+}
+
+.stack-card-new:hover {
+  border-color: var(--accent-primary);
+}
+
+.new-stack-icon {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(108, 99, 255, 0.1);
+  border-radius: var(--radius-lg);
+  color: var(--accent-primary);
+  transition: var(--transition);
+}
+
+.stack-card-new:hover .new-stack-icon {
+  background: rgba(108, 99, 255, 0.2);
+  transform: scale(1.1);
+}
+
+.new-stack-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.stack-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.stack-card-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(108, 99, 255, 0.1);
+  border-radius: var(--radius-md);
+}
+
+.stack-delete-btn {
+  opacity: 0;
+  transition: var(--transition);
+}
+
+.stack-card:hover .stack-delete-btn {
+  opacity: 1;
+}
+
+.stack-card-name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: var(--text-primary);
+}
+
+.stack-card-desc {
+  font-size: 0.8rem;
+  color: var(--text-tertiary);
+  margin-bottom: 16px;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.stack-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.7rem;
+  color: var(--text-tertiary);
+}
+
+.meta-dot {
+  opacity: 0.3;
+}
+
+/* ── Skeleton ───────────────────────────────────────── */
+.stack-card-skeleton {
+  min-height: 180px;
+  cursor: default;
+}
+
+.skeleton-title {
+  width: 60%;
+  height: 16px;
+  background: var(--bg-surface);
+  border-radius: var(--radius-sm);
+  margin-bottom: 12px;
+}
+
+.skeleton-line {
+  width: 80%;
+  height: 10px;
+  background: var(--bg-surface);
+  border-radius: var(--radius-sm);
+  margin-bottom: 8px;
+}
+
+.skeleton-line.short {
+  width: 50%;
+}
+
+/* ── Create Modal ───────────────────────────────────── */
+.create-modal {
+  width: 440px;
+}

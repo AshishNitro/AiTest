@@ -1,0 +1,131 @@
+/* ═══════════════════════════════════════════════════════════════
+   Custom Node Styles
+   ═══════════════════════════════════════════════════════════════ */
+
+.custom-node {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 16px 20px;
+  min-width: 220px;
+  max-width: 260px;
+  position: relative;
+  transition: var(--transition);
+  cursor: pointer;
+}
+
+.custom-node:hover {
+  border-color: var(--border-color-active);
+  box-shadow: var(--shadow-md);
+}
+
+.custom-node.selected {
+  box-shadow: var(--shadow-glow);
+}
+
+/* ── Node Type Borders ──────────────────────────────── */
+.node-query.selected { border-color: var(--node-query); }
+.node-knowledge.selected { border-color: var(--node-knowledge); }
+.node-llm.selected { border-color: var(--node-llm); }
+.node-output.selected { border-color: var(--node-output); }
+.node-websearch.selected { border-color: var(--node-websearch); }
+
+.node-query:hover { border-color: rgba(108, 99, 255, 0.4); }
+.node-knowledge:hover { border-color: rgba(0, 212, 170, 0.4); }
+.node-llm:hover { border-color: rgba(245, 158, 11, 0.4); }
+.node-output:hover { border-color: rgba(236, 72, 153, 0.4); }
+.node-websearch:hover { border-color: rgba(56, 189, 248, 0.4); }
+
+/* ── Node Header ────────────────────────────────────── */
+.node-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.node-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.node-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overflow: hidden;
+}
+
+.node-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.node-subtitle {
+  font-size: 0.7rem;
+  color: var(--text-tertiary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Config Preview ─────────────────────────────────── */
+.node-config-preview {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-color);
+}
+
+.config-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  background: var(--bg-surface);
+  border-radius: var(--radius-full);
+  font-size: 0.65rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  letter-spacing: 0.02em;
+}
+
+/* ── Port Labels ────────────────────────────────────── */
+.node-port-labels {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.port-label {
+  position: absolute;
+  font-size: 0.6rem;
+  font-weight: 500;
+  color: var(--text-tertiary);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.port-label-left {
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.port-label-right {
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* ── Handle Styles ──────────────────────────────────── */
+.handle {
+  transition: var(--transition) !important;
+}
+
+.handle:hover {
+  box-shadow: 0 0 8px currentColor;
+}

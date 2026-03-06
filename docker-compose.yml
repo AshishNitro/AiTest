@@ -23,6 +23,8 @@ services:
   backend:
     build: ./backend
     container_name: planetai-backend
+    env_file:
+      - ./backend/.env
     environment:
       DATABASE_URL: postgresql://postgres:postgres@db:5432/planetai
       CHROMA_PERSIST_DIR: /app/chroma_data
@@ -35,6 +37,7 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    restart: unless-stopped
 
   # React Frontend
   frontend:
@@ -44,6 +47,7 @@ services:
       - "3000:80"
     depends_on:
       - backend
+    restart: unless-stopped
 
 volumes:
   pgdata:

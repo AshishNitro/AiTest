@@ -1,4 +1,5 @@
 """LLM service - handles interactions with OpenAI and Google Gemini models."""
+import asyncio
 import openai
 import google.generativeai as genai
 from typing import List, Optional
@@ -32,7 +33,9 @@ class LLMService:
         
         all_embeddings = []
         for text in texts:
-            result = genai.embed_content(
+            # Run synchronous genai call in thread pool to avoid blocking
+            result = await asyncio.to_thread(
+                genai.embed_content,
                 model=model,
                 content=text,
                 task_type="retrieval_document"
@@ -48,7 +51,8 @@ class LLMService:
             return embeddings[0]
         else:
             genai.configure(api_key=api_key)
-            result = genai.embed_content(
+            result = await asyncio.to_thread(
+                genai.embed_content,
                 model=model if model.startswith("models/") else f"models/{model}",
                 content=query,
                 task_type="retrieval_query"
@@ -124,7 +128,8 @@ class LLMService:
             full_prompt = query
 
         gen_model = genai.GenerativeModel(model)
-        response = gen_model.generate_content(
+        response = await asyncio.to_thread(
+            gen_model.generate_content,
             full_prompt,
             generation_config=genai.GenerationConfig(temperature=temperature)
         )

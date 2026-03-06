@@ -2,6 +2,8 @@
 node_modules/
 __pycache__/
 *.pyc
+venv/
+.venv/
 
 # Environment
 .env
@@ -20,6 +22,7 @@ chroma_data/
 # IDE
 .vscode/
 .idea/
+.gemini/
 
 # OS
 .DS_Store

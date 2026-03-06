@@ -1,4 +1,4 @@
-# 🌐 PlanetAI — No-Code AI Workflow Builder
+#   No-Code AI Workflow Builder
 
 <p align="center">
   <strong>Visually create intelligent AI workflows with drag-and-drop components</strong>
@@ -6,7 +6,7 @@
 
 ---
 
-## 🗂️ Architecture Overview
+##  Architecture Overview
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -45,7 +45,7 @@ User Query → (Optional) Knowledge Base → LLM Engine → Output
            Upload PDF → Extract Text → Generate Embeddings → ChromaDB
 ```
 
-## ✨ Features
+##  Features
 
 - **Visual Workflow Builder** — Drag-and-drop interface built with React Flow
 - **5 Component Types** — User Input, Knowledge Base, LLM Engine, Web Search, Output
@@ -58,7 +58,7 @@ User Query → (Optional) Knowledge Base → LLM Engine → Output
 - **Chat History** — Persistent chat logs stored in PostgreSQL
 - **Docker Deployment** — Fully containerized with Docker Compose
 
-## 🧩 Workflow Components
+##  Workflow Components
 
 | Component          | Description                     | Inputs         | Outputs  |
 | ------------------ | ------------------------------- | -------------- | -------- |
@@ -82,7 +82,7 @@ User Query → (Optional) Knowledge Base → LLM Engine → Output
 | PDF Processing | PyMuPDF                          |
 | Deployment     | Docker, Docker Compose, Nginx    |
 
-## 🚀 Getting Started
+##  Getting Started
 
 ### Prerequisites
 
@@ -200,7 +200,7 @@ Click any node to open its configuration panel on the right:
 2. Click **Chat with AI** to open the chat interface
 3. Ask questions and get AI-powered responses!
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 AiTest/
@@ -255,7 +255,7 @@ AiTest/
 | `GET`    | `/`                                           | API info                   |
 | `GET`    | `/health`                                     | Health check               |
 
-## 🎯 Assignment Deliverables Checklist
+##  Assignment Deliverables Checklist
 
 - ✅ **Full source code** (frontend + backend)
 - ✅ **README** with setup and run instructions

@@ -1,4 +1,4 @@
-# 🚀 PlanetAI — No-Code AI Workflow Builder
+# No-Code AI Workflow Builder
 
 <p align="center">
   <strong>Visually create intelligent AI workflows with drag-and-drop components</strong>

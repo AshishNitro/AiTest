@@ -1,4 +1,4 @@
-# No-Code AI Workflow Builder
+# 🌐 PlanetAI — No-Code AI Workflow Builder
 
 <p align="center">
   <strong>Visually create intelligent AI workflows with drag-and-drop components</strong>
@@ -19,7 +19,7 @@
 │  │                   Chat Modal                            ││
 │  └─────────────────────────────────────────────────────────┘│
 └───────────────────────┬─────────────────────────────────────┘
-                        │ REST API
+                        │ REST API (Axios → FastAPI)
 ┌───────────────────────┴─────────────────────────────────────┐
 │                     Backend (FastAPI)                        │
 │  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌────────────────┐  │
@@ -35,6 +35,16 @@
   └────────────┘ └───────────┘ └─────────────┘
 ```
 
+### Component Flow Diagram
+
+```
+User Query → (Optional) Knowledge Base → LLM Engine → Output
+                  │                          │
+                  │                    Web Search (Optional)
+                  │
+           Upload PDF → Extract Text → Generate Embeddings → ChromaDB
+```
+
 ## ✨ Features
 
 - **Visual Workflow Builder** — Drag-and-drop interface built with React Flow
@@ -43,7 +53,9 @@
 - **RAG Pipeline** — Upload PDFs, generate embeddings, retrieve context with ChromaDB
 - **Web Search Integration** — SerpAPI and Brave Search
 - **Chat Interface** — Interactive chat modal with message history and source attribution
-- **Workflow Persistence** — Save/load workflows from PostgreSQL
+- **Workflow Persistence** — Save/load workflows to/from PostgreSQL
+- **Workflow Validation** — Build Stack validates the workflow before chat
+- **Chat History** — Persistent chat logs stored in PostgreSQL
 - **Docker Deployment** — Fully containerized with Docker Compose
 
 ## 🧩 Workflow Components
@@ -60,15 +72,15 @@
 
 | Layer          | Technology                       |
 | -------------- | -------------------------------- |
-| Frontend       | React, Vite, React Flow, Zustand |
+| Frontend       | React 18, Vite, React Flow, Zustand |
 | Backend        | FastAPI, SQLAlchemy, Pydantic    |
-| Database       | PostgreSQL                       |
+| Database       | PostgreSQL 16                    |
 | Vector Store   | ChromaDB                         |
 | LLMs           | OpenAI GPT, Google Gemini        |
 | Embeddings     | OpenAI, Gemini Embeddings        |
 | Web Search     | SerpAPI, Brave Search            |
 | PDF Processing | PyMuPDF                          |
-| Deployment     | Docker, Docker Compose           |
+| Deployment     | Docker, Docker Compose, Nginx    |
 
 ## 🚀 Getting Started
 
@@ -84,27 +96,39 @@
 ```bash
 # Clone the repository
 git clone <repo-url>
-cd PlanetAi
+cd AiTest
+
+# Create backend env file
+cp backend/.env.example backend/.env
+# Edit backend/.env with your API keys
 
 # Start all services
 docker-compose up --build
 ```
 
-- Frontend: http://localhost:3000
-- Backend API: http://localhost:8000
-- API Docs: http://localhost:8000/docs
+Access the application:
+- **Frontend**: http://localhost:3000
+- **Backend API**: http://localhost:8000
+- **API Docs (Swagger)**: http://localhost:8000/docs
 
 ### Option 2: Local Development
 
-#### Backend Setup
+#### 1. Database Setup
+
+```bash
+# Create PostgreSQL database
+psql -U postgres -c "CREATE DATABASE planetai;"
+```
+
+#### 2. Backend Setup
 
 ```bash
 cd backend
 
 # Create virtual environment
 python -m venv venv
-venv\Scripts\activate  # Windows
-# source venv/bin/activate  # Mac/Linux
+venv\Scripts\activate        # Windows
+# source venv/bin/activate   # Mac/Linux
 
 # Install dependencies
 pip install -r requirements.txt
@@ -117,16 +141,7 @@ cp .env.example .env
 uvicorn app.main:app --reload --port 8000
 ```
 
-#### Database Setup
-
-```bash
-# Create PostgreSQL database
-psql -U postgres -c "CREATE DATABASE planetai;"
-```
-
-The tables are auto-created on first startup.
-
-#### Frontend Setup
+#### 3. Frontend Setup
 
 ```bash
 cd frontend
@@ -177,6 +192,7 @@ Click any node to open its configuration panel on the right:
 - Set API keys, models, and embedding options
 - Upload documents for the Knowledge Base
 - Write custom prompt templates with `{context}` and `{query}` placeholders
+- Enable web search on the LLM Engine node
 
 ### 4. Build & Chat
 
@@ -187,7 +203,7 @@ Click any node to open its configuration panel on the right:
 ## 📁 Project Structure
 
 ```
-PlanetAi/
+AiTest/
 ├── frontend/                   # React Frontend
 │   ├── src/
 │   │   ├── api/               # API client (Axios)
@@ -197,18 +213,25 @@ PlanetAi/
 │   │   │   └── panels/        # Sidebar panels
 │   │   ├── pages/             # Landing & Editor pages
 │   │   ├── store/             # Zustand state management
-│   │   └── styles/            # Global CSS
+│   │   └── styles/            # Global CSS design system
 │   ├── Dockerfile
+│   ├── nginx.conf
 │   └── vite.config.js
 ├── backend/                    # FastAPI Backend
 │   ├── app/
-│   │   ├── api/               # API routes
+│   │   ├── api/               # API routes (stacks, documents, chat)
 │   │   ├── core/              # Config & database
 │   │   ├── models/            # SQLAlchemy models & Pydantic schemas
 │   │   └── services/          # Business logic services
+│   │       ├── workflow_engine.py   # Topological sort execution
+│   │       ├── llm_service.py       # OpenAI & Gemini integration
+│   │       ├── vector_store.py      # ChromaDB operations
+│   │       ├── document_service.py  # PDF text extraction
+│   │       └── web_search.py        # SerpAPI & Brave Search
 │   ├── Dockerfile
 │   └── requirements.txt
-├── docker-compose.yml
+├── docker-compose.yml          # Multi-container orchestration
+├── .gitignore
 └── README.md
 ```
 
@@ -221,11 +244,33 @@ PlanetAi/
 | `GET`    | `/api/stacks/{id}`                            | Get stack details          |
 | `PUT`    | `/api/stacks/{id}`                            | Update stack (nodes/edges) |
 | `DELETE` | `/api/stacks/{id}`                            | Delete a stack             |
-| `POST`   | `/api/stacks/{id}/documents/upload`           | Upload a document          |
-| `POST`   | `/api/stacks/{id}/documents/{doc_id}/process` | Process document           |
+| `GET`    | `/api/stacks/{id}/documents/`                 | List stack documents       |
+| `POST`   | `/api/stacks/{id}/documents/upload`           | Upload a document (PDF)    |
+| `POST`   | `/api/stacks/{id}/documents/{doc_id}/process` | Process document (embed)   |
+| `DELETE` | `/api/stacks/{id}/documents/{doc_id}`         | Delete a document          |
 | `POST`   | `/api/stacks/{id}/validate`                   | Validate workflow          |
 | `POST`   | `/api/stacks/{id}/chat`                       | Execute workflow & chat    |
 | `GET`    | `/api/stacks/{id}/chat/history`               | Get chat history           |
+| `DELETE` | `/api/stacks/{id}/chat/history`               | Clear chat history         |
+| `GET`    | `/`                                           | API info                   |
+| `GET`    | `/health`                                     | Health check               |
+
+## 🎯 Assignment Deliverables Checklist
+
+- ✅ **Full source code** (frontend + backend)
+- ✅ **README** with setup and run instructions
+- ✅ **Clear component structure** and modular design
+- ✅ **Architecture diagram** (ASCII art above)
+- ✅ **Docker deployment** (Dockerfile + docker-compose.yml)
+- ✅ **4 Core Components** (User Query, Knowledge Base, LLM Engine, Output)
+- ✅ **Workflow validation** (Build Stack)
+- ✅ **Chat interface** (Chat with Stack)
+- ✅ **Multi-LLM support** (OpenAI GPT + Google Gemini)
+- ✅ **Document upload & processing** (PyMuPDF + ChromaDB)
+- ✅ **Web search integration** (SerpAPI + Brave Search)
+- ✅ **Workflow persistence** (PostgreSQL)
+- ✅ **Chat history persistence** (PostgreSQL)
+- ⬜ **Video demo** (record a screen recording of the workflow)
 
 ## 📝 License
 

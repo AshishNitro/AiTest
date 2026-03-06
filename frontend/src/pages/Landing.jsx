@@ -7,7 +7,7 @@ import {
   HiOutlineCpuChip,
   HiOutlineSparkles,
 } from 'react-icons/hi2';
-import { stacksApi } from '../../api/client';
+import { stacksApi } from '../api/client';
 import toast from 'react-hot-toast';
 import './Landing.css';
 

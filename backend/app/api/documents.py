@@ -1,7 +1,7 @@
 """Document upload and processing API routes."""
 import os
 import uuid
-from fastapi import APIRouter, Depends, HTTPException, UploadFile, File
+from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Query
 from sqlalchemy.orm import Session
 from typing import List
 from app.core.database import get_db
@@ -69,9 +69,9 @@ async def process_document(
     stack_id: str,
     document_id: str,
     db: Session = Depends(get_db),
-    api_key: str = "",
-    embedding_model: str = "text-embedding-3-small",
-    provider: str = "openai"
+    api_key: str = Query("", description="API key for embedding provider"),
+    embedding_model: str = Query("text-embedding-3-small", description="Embedding model name"),
+    provider: str = Query("openai", description="Embedding provider (openai or gemini)")
 ):
     """Process a document: extract text, generate embeddings, store in vector DB."""
     document = db.query(Document).filter(
